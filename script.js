@@ -1,2 +1,2 @@
- console.log("Script is working!");
-alert("Welcome to my project!");
+// Simple welcome message in console
+console.log("Welcome to Bhavana's OIBSIP Project!");
