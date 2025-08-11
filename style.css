@@ -1,13 +1,13 @@
 body {
-    background-image: url('images/galaxy-bg.jpg'); /* path to your saved image */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
     margin: 0;
-    font-family: Arial, sans-serif;
+    padding: 0;
+    height: 100vh;
+    background: url("images/galaxy-bg.jpg") no-repeat center center fixed;
+    background-size: cover;
     color: white;
     text-align: center;
 }
+
 
 .hero {
     background: url('https://source.unsplash.com/1600x900/?stars,galaxy') no-repeat center center/cover;
