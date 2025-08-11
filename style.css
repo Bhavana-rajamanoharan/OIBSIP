@@ -1,9 +1,12 @@
 body {
-    font-family: Arial, sans-serif;
+    background-image: url('images/galaxy-bg.jpg'); /* path to your saved image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif;
+    color: white;
     text-align: center;
-    background: #f9f9f9;
 }
 
 .hero {
