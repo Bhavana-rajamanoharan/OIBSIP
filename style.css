@@ -1,11 +1,13 @@
 body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    background: url('images/light.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: white;
-    text-align: center;
+  background: url('images/light.jpg') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  color: black; /* This changes all text to black */
+}
+
+h1, h2, h3, p {
+  color: black;
 }
 
 .hero {
