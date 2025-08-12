@@ -1,95 +1,120 @@
-document.addEventListener("DOMContentLoaded", loadTasks);
+document.addEventListener("DOMContentLoaded", () => {
+  const pendingKey = "pendingTasks";
+  const completedKey = "completedTasks";
 
-function getDateTime() {
-    let now = new Date();
-    return now.toLocaleString();
-}
+  let pendingTasks = [];
+  let completedTasks = [];
 
-function addTask() {
-    let taskInput = document.getElementById("taskInput");
-    let taskText = taskInput.value.trim();
-    if (taskText === "") return alert("Please enter a task");
+  const taskInput = document.getElementById("taskInput");
+  const pendingList = document.getElementById("pendingList");
+  const completedList = document.getElementById("completedList");
 
-    let li = createTaskElement(taskText, getDateTime(), false);
-    document.getElementById("pendingList").appendChild(li);
+  function saveTasks() {
+    localStorage.setItem(pendingKey, JSON.stringify(pendingTasks));
+    localStorage.setItem(completedKey, JSON.stringify(completedTasks));
+  }
 
-    saveTasks();
-    taskInput.value = "";
-}
+  function loadTasks() {
+    pendingTasks = JSON.parse(localStorage.getItem(pendingKey)) || [];
+    completedTasks = JSON.parse(localStorage.getItem(completedKey)) || [];
+    render();
+  }
 
-function createTaskElement(text, time, completed) {
-    let li = document.createElement("li");
-
-    let span = document.createElement("span");
+  function createTaskElement(text, isCompleted) {
+    const li = document.createElement("li");
+    const span = document.createElement("span");
     span.textContent = text;
 
-    let timeDiv = document.createElement("div");
-    timeDiv.className = "task-time";
-    timeDiv.textContent = "Added: " + time;
+    const btnWrap = document.createElement("div");
 
-    let completeBtn = document.createElement("button");
-    completeBtn.textContent = "✓";
-    completeBtn.onclick = () => completeTask(li);
+    const completeBtn = document.createElement("button");
+    completeBtn.textContent = "✔";
+    completeBtn.addEventListener("click", () => {
+      if (!isCompleted) completeTask(text);
+    });
 
-    let editBtn = document.createElement("button");
+    const editBtn = document.createElement("button");
     editBtn.textContent = "✎";
-    editBtn.onclick = () => editTask(span);
+    editBtn.addEventListener("click", () => {
+      editTask(text, isCompleted);
+    });
 
-    let deleteBtn = document.createElement("button");
+    const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "🗑";
-    deleteBtn.onclick = () => li.remove();
+    deleteBtn.addEventListener("click", () => {
+      deleteTask(text, isCompleted);
+    });
 
-    li.append(span, timeDiv, completeBtn, editBtn, deleteBtn);
+    btnWrap.append(completeBtn, editBtn, deleteBtn);
+    li.append(span, btnWrap);
 
-    if (completed) {
-        li.style.opacity = "0.6";
-        li.style.textDecoration = "line-through";
+    if (isCompleted) {
+      li.style.opacity = "0.6";
+      span.style.textDecoration = "line-through";
     }
 
     return li;
-}
+  }
 
-function completeTask(li) {
-    let timeDiv = li.querySelector(".task-time");
-    timeDiv.innerHTML += "<br>Completed: " + getDateTime();
+  function render() {
+    pendingList.innerHTML = "";
+    completedList.innerHTML = "";
 
-    li.style.opacity = "0.6";
-    li.style.textDecoration = "line-through";
+    pendingTasks.forEach(task => {
+      pendingList.appendChild(createTaskElement(task, false));
+    });
 
-    document.getElementById("completedList").appendChild(li);
+    completedTasks.forEach(task => {
+      completedList.appendChild(createTaskElement(task, true));
+    });
+  }
+
+  function addTask() {
+    const text = taskInput.value.trim();
+    if (text === "") {
+      alert("Please enter a task");
+      return;
+    }
+    pendingTasks.push(text);
     saveTasks();
-}
+    render();
+    taskInput.value = "";
+  }
 
-function editTask(span) {
-    let newText = prompt("Edit your task", span.textContent);
-    if (newText) span.textContent = newText;
+  function completeTask(text) {
+    pendingTasks = pendingTasks.filter(t => t !== text);
+    completedTasks.unshift(text);
     saveTasks();
-}
+    render();
+  }
 
-function saveTasks() {
-    let pending = [];
-    document.querySelectorAll("#pendingList li").forEach(li => {
-        pending.push(li.querySelector("span").textContent);
-    });
+  function editTask(oldText, isCompleted) {
+    const newText = prompt("Edit task:", oldText);
+    if (newText && newText.trim() !== "") {
+      if (isCompleted) {
+        completedTasks = completedTasks.map(t => (t === oldText ? newText : t));
+      } else {
+        pendingTasks = pendingTasks.map(t => (t === oldText ? newText : t));
+      }
+      saveTasks();
+      render();
+    }
+  }
 
-    let completed = [];
-    document.querySelectorAll("#completedList li").forEach(li => {
-        completed.push(li.querySelector("span").textContent);
-    });
+  function deleteTask(text, isCompleted) {
+    if (isCompleted) {
+      completedTasks = completedTasks.filter(t => t !== text);
+    } else {
+      pendingTasks = pendingTasks.filter(t => t !== text);
+    }
+    saveTasks();
+    render();
+  }
 
-    localStorage.setItem("pendingTasks", JSON.stringify(pending));
-    localStorage.setItem("completedTasks", JSON.stringify(completed));
-}
+  document.querySelector(".input-section button").addEventListener("click", addTask);
+  taskInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") addTask();
+  });
 
-function loadTasks() {
-    let pending = JSON.parse(localStorage.getItem("pendingTasks")) || [];
-    let completed = JSON.parse(localStorage.getItem("completedTasks")) || [];
-
-    pending.forEach(task => {
-        document.getElementById("pendingList").appendChild(createTaskElement(task, getDateTime(), false));
-    });
-
-    completed.forEach(task => {
-        document.getElementById("completedList").appendChild(createTaskElement(task, getDateTime(), true));
-    });
-}
+  loadTasks();
+});
