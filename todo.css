@@ -1,67 +1,103 @@
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    text-align: center;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #74b9ff, #a29bfe);
+  margin: 0;
+  padding: 0;
 }
 
 .container {
-    width: 90%;
-    max-width: 600px;
-    margin: auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 500px;
+  margin: 50px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+}
+
+h1 {
+  text-align: center;
+  color: #2d3436;
 }
 
 .input-section {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px;
+  display: flex;
+  margin-bottom: 15px;
 }
 
-input {
-    flex: 1;
-    padding: 10px;
-    font-size: 16px;
+.input-section input {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #dfe6e9;
+  border-radius: 6px;
+  font-size: 16px;
 }
 
-button {
-    padding: 10px 15px;
-    font-size: 16px;
-    background: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
+.input-section button {
+  margin-left: 10px;
+  padding: 10px 15px;
+  background: #0984e3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
-button:hover {
-    background: #218838;
+.input-section button:hover {
+  background: #74b9ff;
+}
+
+h2 {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #2d3436;
+  border-bottom: 2px solid #dfe6e9;
+  padding-bottom: 5px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
 }
 
 li {
-    list-style: none;
-    margin: 10px 0;
-    padding: 10px;
-    background: #f8f9fa;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  background: #f1f2f6;
+  margin-bottom: 8px;
+  padding: 10px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 li span {
-    flex: 1;
-    text-align: left;
+  flex: 1;
 }
 
-.task-time {
-    font-size: 12px;
-    color: #666;
+li button {
+  margin-left: 5px;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-/* Completed task style */
-#completedList li {
-    opacity: 0.6;
-    text-decoration: line-through;
+li button:nth-child(1) {
+  background: #00b894;
+  color: white;
+}
+
+li button:nth-child(2) {
+  background: #fdcb6e;
+  color: white;
+}
+
+li button:nth-child(3) {
+  background: #d63031;
+  color: white;
+}
+
+li button:hover {
+  opacity: 0.8;
 }
