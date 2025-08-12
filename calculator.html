@@ -3,49 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator</title>
-    <link rel="stylesheet" href="calculator.css">
+    <title>Modern Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #89f7fe, #66a6ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            padding: 20px;
+            width: 300px;
+        }
+
+        .display {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 2em;
+            text-align: right;
+            margin-bottom: 15px;
+            overflow-x: auto;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            padding: 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.3);
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .equal {
+            grid-column: span 2;
+            background: #4cafef;
+            color: white;
+        }
+
+        .equal:hover {
+            background: #3498db;
+        }
+    </style>
 </head>
 <body>
     <div class="calculator">
-        <input type="text" id="display" disabled>
+        <div id="display" class="display">0</div>
         <div class="buttons">
             <button onclick="clearDisplay()">C</button>
+            <button onclick="deleteLast()">DEL</button>
+            <button onclick="append('%')">%</button>
             <button onclick="append('/')">/</button>
-            <button onclick="append('*')">*</button>
-            <button onclick="append('-')">-</button>
-
             <button onclick="append('7')">7</button>
             <button onclick="append('8')">8</button>
             <button onclick="append('9')">9</button>
-            <button onclick="append('+')">+</button>
-
+            <button onclick="append('*')">*</button>
             <button onclick="append('4')">4</button>
             <button onclick="append('5')">5</button>
             <button onclick="append('6')">6</button>
-            <button onclick="calculate()">=</button>
-
+            <button onclick="append('-')">-</button>
             <button onclick="append('1')">1</button>
             <button onclick="append('2')">2</button>
             <button onclick="append('3')">3</button>
+            <button onclick="append('+')">+</button>
             <button onclick="append('0')">0</button>
-
             <button onclick="append('.')">.</button>
+            <button class="equal" onclick="calculate()">=</button>
         </div>
     </div>
 
     <script>
+        let display = document.getElementById('display');
+
         function append(value) {
-            document.getElementById("display").value += value;
+            if (display.innerText === '0') {
+                display.innerText = value;
+            } else {
+                display.innerText += value;
+            }
         }
+
         function clearDisplay() {
-            document.getElementById("display").value = "";
+            display.innerText = '0';
         }
+
+        function deleteLast() {
+            if (display.innerText.length > 1) {
+                display.innerText = display.innerText.slice(0, -1);
+            } else {
+                display.innerText = '0';
+            }
+        }
+
         function calculate() {
             try {
-                document.getElementById("display").value = eval(document.getElementById("display").value);
+                display.innerText = eval(display.innerText);
             } catch {
-                document.getElementById("display").value = "Error";
+                display.innerText = 'Error';
             }
         }
     </script>
