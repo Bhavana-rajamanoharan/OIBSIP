@@ -1,63 +1,76 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #74ABE2, #5563DE);
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
 }
 
 .calculator {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    border-radius: 20px;
+    background: #f1f7ff;
     padding: 20px;
-    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
-    width: 320px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    width: 300px;
 }
 
-input {
-    width: 100%;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
+.display {
+    background: #dfeeff;
+    padding: 15px;
     border-radius: 10px;
-    font-size: 24px;
     text-align: right;
-    padding: 10px;
+    font-size: 1.5rem;
+    min-height: 60px;
     margin-bottom: 15px;
-    color: #fff;
-    outline: none;
+}
+
+#expression {
+    font-size: 1rem;
+    color: #555;
+}
+
+#result {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
 }
 
 button {
-    width: 60px;
-    height: 60px;
-    margin: 8px;
+    padding: 15px;
     border: none;
-    border-radius: 15px;
-    font-size: 18px;
-    cursor: pointer;
-    background: rgba(255, 255, 255, 0.3);
-    color: #fff;
+    background: #b9d6ff;
+    border-radius: 12px;
+    font-size: 1rem;
     font-weight: bold;
-    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    transition: 0.2s ease;
 }
 
 button:hover {
-    background: rgba(255, 255, 255, 0.6);
-    transform: scale(1.1);
+    background: #9ac4ff;
 }
 
-button:active {
-    transform: scale(0.95);
+#clear {
+    background: #ffb3b3;
 }
 
-button:nth-child(1) {
-    background: #ff4d4d;
+#clear:hover {
+    background: #ff8a8a;
 }
 
-button:nth-child(1):hover {
-    background: #ff1a1a;
+.enter {
+    grid-column: span 2;
+    background: #86b7ff;
+    color: white;
+}
+
+.enter:hover {
+    background: #5c9dff;
 }

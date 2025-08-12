@@ -1,126 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Calculator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #89f7fe, #66a6ff);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .calculator {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-            padding: 20px;
-            width: 300px;
-        }
-
-        .display {
-            background: rgba(255, 255, 255, 0.25);
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 2em;
-            text-align: right;
-            margin-bottom: 15px;
-            overflow-x: auto;
-        }
-
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-
-        button {
-            padding: 20px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            background: rgba(255, 255, 255, 0.3);
-            transition: background 0.3s;
-        }
-
-        button:hover {
-            background: rgba(255, 255, 255, 0.5);
-        }
-
-        .equal {
-            grid-column: span 2;
-            background: #4cafef;
-            color: white;
-        }
-
-        .equal:hover {
-            background: #3498db;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Calculator</title>
+<link rel="stylesheet" href="calculator.css">
 </head>
 <body>
-    <div class="calculator">
-        <div id="display" class="display">0</div>
-        <div class="buttons">
-            <button onclick="clearDisplay()">C</button>
-            <button onclick="deleteLast()">DEL</button>
-            <button onclick="append('%')">%</button>
-            <button onclick="append('/')">/</button>
-            <button onclick="append('7')">7</button>
-            <button onclick="append('8')">8</button>
-            <button onclick="append('9')">9</button>
-            <button onclick="append('*')">*</button>
-            <button onclick="append('4')">4</button>
-            <button onclick="append('5')">5</button>
-            <button onclick="append('6')">6</button>
-            <button onclick="append('-')">-</button>
-            <button onclick="append('1')">1</button>
-            <button onclick="append('2')">2</button>
-            <button onclick="append('3')">3</button>
-            <button onclick="append('+')">+</button>
-            <button onclick="append('0')">0</button>
-            <button onclick="append('.')">.</button>
-            <button class="equal" onclick="calculate()">=</button>
-        </div>
+
+<div class="calculator">
+    <div class="display">
+        <div id="expression"></div>
+        <div id="result"></div>
     </div>
+    <div class="buttons">
+        <button>(</button>
+        <button>)</button>
+        <button id="ans">ans</button>
+        <button id="del">del</button>
+        <button id="clear">clear</button>
 
-    <script>
-        let display = document.getElementById('display');
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button>%</button>
+        <button>√</button>
 
-        function append(value) {
-            if (display.innerText === '0') {
-                display.innerText = value;
-            } else {
-                display.innerText += value;
-            }
-        }
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button>x</button>
+        <button>÷</button>
 
-        function clearDisplay() {
-            display.innerText = '0';
-        }
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>+</button>
+        <button>-</button>
 
-        function deleteLast() {
-            if (display.innerText.length > 1) {
-                display.innerText = display.innerText.slice(0, -1);
-            } else {
-                display.innerText = '0';
-            }
-        }
+        <button>.</button>
+        <button>0</button>
+        <button>±</button>
+        <button id="enter" class="enter">ENTER</button>
+    </div>
+</div>
 
-        function calculate() {
-            try {
-                display.innerText = eval(display.innerText);
-            } catch {
-                display.innerText = 'Error';
-            }
-        }
-    </script>
+<script src="calculator.js"></script>
 </body>
 </html>
