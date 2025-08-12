@@ -1,58 +1,35 @@
-const taskInput = document.getElementById("taskInput");
-const addBtn = document.getElementById("addBtn");
-const taskList = document.getElementById("taskList");
+function addTask() {
+    let taskInput = document.getElementById("taskInput");
+    let taskText = taskInput.value.trim();
+    if (taskText === "") return;
 
-function saveTasks() {
-  localStorage.setItem("tasks", taskList.innerHTML);
-}
+    let li = document.createElement("li");
+    li.innerHTML = `
+        <span>${taskText}</span>
+        <div class="task-buttons">
+            <button onclick="completeTask(this)">✔</button>
+            <button onclick="editTask(this)">✏</button>
+            <button onclick="deleteTask(this)">❌</button>
+        </div>
+    `;
+    document.getElementById("pendingList").appendChild(li);
 
-function loadTasks() {
-  taskList.innerHTML = localStorage.getItem("tasks") || "";
-  addDeleteListeners();
-}
-
-function addTask(text) {
-  const li = document.createElement("li");
-  li.innerHTML = `
-    <span>${text}</span>
-    <button class="delete">X</button>
-  `;
-
-  li.querySelector("span").addEventListener("click", () => {
-    li.classList.toggle("completed");
-    saveTasks();
-  });
-
-  li.querySelector(".delete").addEventListener("click", () => {
-    li.remove();
-    saveTasks();
-  });
-
-  taskList.appendChild(li);
-  saveTasks();
-}
-
-function addDeleteListeners() {
-  document.querySelectorAll(".delete").forEach(btn => {
-    btn.addEventListener("click", function () {
-      this.parentElement.remove();
-      saveTasks();
-    });
-  });
-
-  document.querySelectorAll("#taskList span").forEach(span => {
-    span.addEventListener("click", function () {
-      this.parentElement.classList.toggle("completed");
-      saveTasks();
-    });
-  });
-}
-
-addBtn.addEventListener("click", () => {
-  if (taskInput.value.trim() !== "") {
-    addTask(taskInput.value.trim());
     taskInput.value = "";
-  }
-});
+}
 
-loadTasks();
+function completeTask(btn) {
+    let li = btn.parentElement.parentElement;
+    document.getElementById("completedList").appendChild(li);
+}
+
+function editTask(btn) {
+    let li = btn.parentElement.parentElement;
+    let newTask = prompt("Edit task:", li.querySelector("span").textContent);
+    if (newTask) {
+        li.querySelector("span").textContent = newTask;
+    }
+}
+
+function deleteTask(btn) {
+    btn.parentElement.parentElement.remove();
+}
